@@ -90,7 +90,7 @@ public class SerializeData : MonoBehaviour
         convert = Task.Run(() => ToRectangular(true));
         await convert;
 
-        particleCount = 750;//data[0].Count;
+        particleCount = data[0].Count;
         timestepCount = data[0][0].timesteps.Count;
 
         if (printInfo)
@@ -211,7 +211,7 @@ public class SerializeData : MonoBehaviour
             }
         }
 
-        if (printInfo) Debug.Log("ReadParticleData.Transform: " + (DateTime.Now - start).ToString());
+        if (printInfo) Debug.Log("ReadParticleData.Classify: " + (DateTime.Now - start).ToString());
     }
 
     public void ToRectangular(bool flat = true)

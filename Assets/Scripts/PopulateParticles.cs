@@ -38,7 +38,7 @@ public class PopulateParticles : MonoBehaviour {
     TrailRenderer defaultTrail;
     TrailRenderer highlightTrail;
 
-    int currentTimestep = 0;
+    public int currentTimestep = 0;
     int frameCount = 0;
     
 
@@ -96,7 +96,7 @@ public class PopulateParticles : MonoBehaviour {
                 }
                 frameCount++;
             }
-            if (flushTrails)
+            if (flushTrails || currentTimestep == 2999 || currentTimestep == 0)
             {
                 FlushTrails();
                 flushTrails = false;
