@@ -133,6 +133,7 @@ public class PopulateParticles : MonoBehaviour {
     /// <param name="particle"></param>
     public void HighlightParticle(GameObject particle)
     {
+        Debug.Log("wat? " + particle.name);
         if (highlightedParticles.Contains(particle))
         {
             highlightedParticles.Remove(particle);

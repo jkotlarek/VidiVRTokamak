@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Valve.VR;
+using VRTK;
 
 public class VR_ColliderTeleporter : MonoBehaviour {
 
     //Max teleport range
     public InterpolationMode mode = InterpolationMode.Instant;
     [Range(0, 1)] public float tRate = 0.1f;
-    [Range(0, 0.5f)] public float threshold = 0.05f;
-    public int chargeTime = 90;
-    public float maxDist = 5f;
+    [Range(0, 0.5f)] public float threshold = 0.5f;
+    public int chargeTime = 25;
+    public float maxDist = 7f;
     public GameObject shadowGO;
+    public GameObject origin;
 
     //Max height allowed
     float upperBound = 24f;
@@ -35,7 +36,7 @@ public class VR_ColliderTeleporter : MonoBehaviour {
 
     Vector3 tPos;
     Vector3 startPos;
-    Transform t;
+    Transform t { get { return origin.transform; } }
     Transform shadow { get { return shadowGO.transform; } }
     LineRenderer shadowLR;
     
@@ -46,32 +47,18 @@ public class VR_ColliderTeleporter : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        var trackedController = GetComponent<SteamVR_TrackedController>();
-        if (trackedController == null)
-        {
-            trackedController = gameObject.AddComponent<SteamVR_TrackedController>();
-        }
-
-        trackedController.TriggerClicked += new ClickedEventHandler(ProjectReference);
-        trackedController.TriggerUnclicked += new ClickedEventHandler(Teleport);
-
-        var top = SteamVR_Render.Top();
-        if (top == null) Debug.LogError("Cannot Find Play Area!");
-
-        t = top.origin;
-
         shadowLR = shadow.GetComponent<LineRenderer>();
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         //perform pre-teleport update
         if (shadowGO.activeSelf)
         {
             float t = charge / (float)chargeTime;
             shadow.position = BoundedTeleport();
             shadowLR.SetPositions(new Vector3[] { transform.position,  Vector3.Lerp(transform.position, shadow.position, t*t)});
-            Debug.Log(charge);
+            //Debug.Log(charge);
             if(++charge == chargeTime)
             {
                 Debug.Log("ding!");
@@ -101,13 +88,13 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     }
 
     // Project a shadow reference where teleport is aimed.
-    void ProjectReference(object sender, ClickedEventArgs e)
+    public void ProjectReference()
     {
         shadowGO.SetActive(true);
     }
 
     // Teleport User to targeted location using colliders
-    void Teleport(object sender, ClickedEventArgs e)
+    public void Teleport()
     {
         shadowGO.SetActive(false);
         shadowLR.SetPositions(new Vector3[] { Vector3.zero, Vector3.zero });
@@ -197,8 +184,9 @@ public class VR_ColliderTeleporter : MonoBehaviour {
         // Calculate new position
         Vector3 newPos = t.position + (ray.origin + (ray.direction * dist)) - headPosOnGround;
 
-        if (skipBoundCorrection) { return newPos; }
-
+        return newPos;
+        //if (skipBoundCorrection) { return newPos; }
+        /*
         //Correct for clipping with sides and top of reactor:
 
         //first move area down if above threshold height
@@ -269,6 +257,7 @@ public class VR_ColliderTeleporter : MonoBehaviour {
         }
 
         return newPos;
+        */
     }
 
     float SigmoidInterpolation(float t)

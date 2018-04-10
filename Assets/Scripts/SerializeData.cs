@@ -49,23 +49,6 @@ public class SerializeData : MonoBehaviour
         */
     }
 
-    public async void DeserializeData()
-    {
-        DateTime start = DateTime.Now;
-
-        string fullpath = Application.dataPath + "/Resources/" + "<filename>" + ".dat";
-
-        Task deserializeTask = Task.Run(() => Serializer.Deserialize(fullpath));
-        await deserializeTask;
-
-        particleCount = data[0].Count;
-        timestepCount = data[0][0].timesteps.Count;
-
-        isReady = true;
-
-        if (printInfo) Debug.Log("Deserialize Complete in " + (DateTime.Now - start).ToString());
-    }
-
     public async void Read()
     {
         fullPath = Application.dataPath + "/StreamingAssets/" + file;
@@ -248,4 +231,22 @@ public class SerializeData : MonoBehaviour
         if (printInfo) Debug.Log("ReadParticleData.ToRectangular: " + (DateTime.Now - start).ToString());
     }
     
+}
+
+public class Particle
+{
+    public List<Vector3> timesteps;
+    public List<bool> trapped;
+
+    public Particle()
+    {
+        timesteps = new List<Vector3>();
+        trapped = new List<bool>();
+    }
+
+    public Particle(List<bool> b)
+    {
+        timesteps = new List<Vector3>();
+        trapped = b;
+    }
 }
