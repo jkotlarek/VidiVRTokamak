@@ -251,9 +251,9 @@ namespace VRTK
                 TooltipButtons.TriggerTooltip,
                 TooltipButtons.GripTooltip,
                 TooltipButtons.TouchpadTooltip,
-                TooltipButtons.ButtonOneTooltip,
+                //TooltipButtons.ButtonOneTooltip,
                 TooltipButtons.ButtonTwoTooltip,
-                TooltipButtons.StartMenuTooltip
+                //TooltipButtons.StartMenuTooltip
             };
 
             buttonTooltips = new VRTK_ObjectTooltip[availableButtons.Length];

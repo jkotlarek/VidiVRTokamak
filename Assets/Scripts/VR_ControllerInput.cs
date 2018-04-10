@@ -13,11 +13,13 @@ public class VR_ControllerInput : MonoBehaviour {
     VRTK_ControllerEvents controller;
     VRTK_Pointer pointer;
     VRTK_BasePointerRenderer pointerRenderer;
+    VRTK_ControllerTooltips controllerTooltips;
     VR_ColliderTeleporter teleporter;
     PopulateParticles particleScript;
     VisibilitySegments visibilitySegments;
 
     Transform target;
+    bool tooltipState = true;
 
     public ControllerMode mode = ControllerMode.Undefined;
 
@@ -29,10 +31,12 @@ public class VR_ControllerInput : MonoBehaviour {
         teleporter = GetComponent<VR_ColliderTeleporter>();
         pointer = GetComponent<VRTK_Pointer>();
         pointerRenderer = GetComponent<VRTK_BasePointerRenderer>();
+        controllerTooltips = GetComponentInChildren<VRTK_ControllerTooltips>();
 
         controller.GripPressed += TogglePause;
         controller.TriggerClicked += HandleTriggerClick;
         controller.TriggerUnclicked += HandleTriggerUnclick;
+        controller.ButtonTwoPressed += ToggleTooltips;
         pointer.DestinationMarkerEnter += HandlePointerEnter;
         pointer.DestinationMarkerExit += HandlePointerExit;
 
@@ -70,6 +74,11 @@ public class VR_ControllerInput : MonoBehaviour {
         {
             go.SetActive(!go.activeSelf);
         }
+    }
+
+    private void ToggleTooltips(object sender, ControllerInteractionEventArgs e)
+    {
+        controllerTooltips.ToggleTips(tooltipState = !tooltipState);
     }
 
     private void HandleTriggerClick(object sender, ControllerInteractionEventArgs e)
