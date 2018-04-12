@@ -7,18 +7,25 @@ vertex = []
 with open('Data/g132543.00700.node') as f:
 	for line in f:
 		data = line.split()
-		vertex.append({'x':float(data[1]),'y':-float(data[2])})
+		vertex.append([float(data[1]),-float(data[2])])
 
-minY = min(vertex, key=lambda x:x['y'])['y']
-YRange = max(vertex, key=lambda x:x['y'])['y'] - minY
-minX = min(vertex, key=lambda x:x['x'])['x']
-XRange = max(vertex, key=lambda x:x['x'])['x'] - minX
+minY = min(vertex, key=lambda x:x[1])[1]
+YRange = max(vertex, key=lambda x:x[1])[1] - minY
+minX = min(vertex, key=lambda x:x[0])[0]
+XRange = max(vertex, key=lambda x:x[0])[0] - minX
 
 for v in vertex:
-	v['y'] = (v['y']-minY) / YRange
-	v['y'] = v['y']*0.9 + 0.05
-	v['x'] = (v['x']-minX) / XRange
-	v['x'] = v['x']*0.9 + 0.05
+	v[1] = (v[1]-minY) / YRange
+	v[1] = v[1]*0.9 + 0.05
+	v[0] = (v[0]-minX) / XRange
+	v[0] = v[0]*0.9 + 0.05
+
+triangle = []
+with open('Data/g132543.00700.ele') as f:
+	for line in f:
+		data = line.split()
+		triangle.append([int(data[1]),int(data[2]),int(data[3])])
+
 
 current = [[]]
 index = 0
@@ -29,9 +36,8 @@ with open('Data/xgca_mira044_jb_trapped_passing.dat') as f:
 			index = 0
 			timestep += 1
 			current.append([])
+			print(timestep)
 		else:
 			[t, p] = line.split();
-			if index == 0:
-				current[timestep].append([])
-			current[timestep][index].append({'t':0,'p':0})
+			current[timestep].append({'t':float(t),'p':float(p)})
 		index += 1
