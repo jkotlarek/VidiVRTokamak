@@ -41,6 +41,7 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     LineRenderer shadowLR;
     
     bool skipBoundCorrection = true;
+    bool charging = false;
     bool teleporting = false;
     bool postTeleport = false;
     bool enableTeleport = false;
@@ -59,11 +60,12 @@ public class VR_ColliderTeleporter : MonoBehaviour {
             shadow.position = BoundedTeleport();
             shadowLR.SetPositions(new Vector3[] { transform.position,  Vector3.Lerp(transform.position, shadow.position, t*t)});
             //Debug.Log(charge);
-            if(++charge == chargeTime)
+            if(charging && ++charge == chargeTime)
             {
                 Debug.Log("ding!");
                 shadowLR.widthMultiplier = 0.2f;
                 enableTeleport = true;
+                charging = false;
             }
         }
 
@@ -82,6 +84,8 @@ public class VR_ColliderTeleporter : MonoBehaviour {
         //perform post-teleport update
         if (postTeleport)
         {
+            shadowGO.SetActive(true);
+            shadow.position = BoundedTeleport();
             tProg = 0f;
             postTeleport = false;
         }
@@ -91,6 +95,12 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     public void ProjectReference()
     {
         shadowGO.SetActive(true);
+        charging = true;
+    }
+
+    public void EnableTeleport(bool enable)
+    {
+        shadowGO.SetActive(enable);
     }
 
     // Teleport User to targeted location using colliders

@@ -5,7 +5,7 @@ using VRTK;
 
 public enum ControllerMode
 {
-    Undefined, Teleport, Highlight, Visibility, Options
+    Undefined, Teleport, Highlight, Options
 }
 
 public class VR_ControllerInput : MonoBehaviour {
@@ -20,6 +20,8 @@ public class VR_ControllerInput : MonoBehaviour {
 
     Transform target;
     bool tooltipState = true;
+    bool padTouched = false;
+    float padTouchY = 0f;
 
     public ControllerMode mode = ControllerMode.Undefined;
 
@@ -37,6 +39,8 @@ public class VR_ControllerInput : MonoBehaviour {
         controller.TriggerClicked += HandleTriggerClick;
         controller.TriggerUnclicked += HandleTriggerUnclick;
         controller.ButtonTwoPressed += ToggleTooltips;
+        controller.TouchpadTouchStart += HandleTouchpadTouchStart;
+        controller.TouchpadTouchEnd += HandleTouchpadTouchEnd;
         pointer.DestinationMarkerEnter += HandlePointerEnter;
         pointer.DestinationMarkerExit += HandlePointerExit;
 
@@ -61,6 +65,17 @@ public class VR_ControllerInput : MonoBehaviour {
         pointer.DestinationMarkerExit += HandlePointerExit;
     }
     */
+
+    private void Update()
+    {
+        if (mode == ControllerMode.Teleport && padTouched)
+        {
+            float t = controller.GetTouchpadAxis().y;
+            teleporter.maxDist += (t - padTouchY)*4;
+            Mathf.Clamp(teleporter.maxDist, 1, 11);
+            padTouchY = t;
+        }
+    }
 
     private void TogglePause(object sender, ControllerInteractionEventArgs e)
     {
@@ -98,9 +113,6 @@ public class VR_ControllerInput : MonoBehaviour {
                 teleporter.ProjectReference();
                 break;
 
-            case ControllerMode.Visibility:
-                break;
-
             case ControllerMode.Undefined:
                 break;
         }
@@ -133,30 +145,46 @@ public class VR_ControllerInput : MonoBehaviour {
         target = null;
     }
 
+    private void HandleTouchpadTouchStart(object sender, ControllerInteractionEventArgs e)
+    {
+        if (mode == ControllerMode.Teleport)
+        {
+            padTouched = true;
+            padTouchY = e.touchpadAxis.y;
+        }
+    }
+
+    private void HandleTouchpadTouchEnd(object sender, ControllerInteractionEventArgs e)
+    {
+        padTouched = false;
+    }
+
     public void RadialSelectHighlight()
     {
         mode = ControllerMode.Highlight;
         pointerRenderer.enabled = true;
+        teleporter.EnableTeleport(false);
     }
 
     public void RadialSelectVisibility()
     {
-        //mode = ControllerMode.Visibility;
         ToggleVisibility();
-        pointerRenderer.enabled = false;
+        //pointerRenderer.enabled = false;
     }
 
     public void RadialSelectTeleport()
     {
         mode = ControllerMode.Teleport;
         pointerRenderer.enabled = false;
+        teleporter.EnableTeleport(true);
     }
 
     public void RadialSelectOptions()
     {
         //mode = ControllerMode.Options;
         particleScript.ToggleTrails();
-        pointerRenderer.enabled = false;
+        //pointerRenderer.enabled = false;
+        //teleporter.EnableTeleport(false);
     }
 
     /*
