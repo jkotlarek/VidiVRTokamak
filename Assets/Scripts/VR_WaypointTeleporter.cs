@@ -14,6 +14,7 @@ public class VR_WaypointTeleporter : MonoBehaviour {
     public float maxDist = 7f;
     public GameObject shadowGO;
     public GameObject origin;
+    public GameObject waypointPrefab;
 
     //Max height allowed
     float upperBound = 24f;
@@ -39,6 +40,8 @@ public class VR_WaypointTeleporter : MonoBehaviour {
     Transform t { get { return origin.transform; } }
     Transform shadow { get { return shadowGO.transform; } }
     LineRenderer shadowLR;
+
+    List<GameObject> waypoints;
     
     bool skipBoundCorrection = true;
     bool charging = false;
