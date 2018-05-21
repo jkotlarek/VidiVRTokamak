@@ -104,7 +104,7 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     }
 
     // Teleport User to targeted location using colliders
-    public void Teleport()
+    public bool Teleport()
     {
         shadowGO.SetActive(false);
         shadowLR.SetPositions(new Vector3[] { Vector3.zero, Vector3.zero });
@@ -118,7 +118,9 @@ public class VR_ColliderTeleporter : MonoBehaviour {
             startPos = t.position;
             tPos = BoundedTeleport();
             teleporting = true;
+            return true;
         }
+        return false;
     }
 
     Vector3 InterpolateTeleport(float t)

@@ -17,6 +17,7 @@ public class VR_ControllerInput : MonoBehaviour {
     VR_ColliderTeleporter teleporter;
     PopulateParticles particleScript;
     VisibilitySegments visibilitySegments;
+    CubeMiniMap cubeminimap;
 
     Transform target;
     bool tooltipState = true;
@@ -34,6 +35,7 @@ public class VR_ControllerInput : MonoBehaviour {
         pointer = GetComponent<VRTK_Pointer>();
         pointerRenderer = GetComponent<VRTK_BasePointerRenderer>();
         controllerTooltips = GetComponentInChildren<VRTK_ControllerTooltips>();
+        cubeminimap = FindObjectOfType<CubeMiniMap>();
 
         controller.GripPressed += TogglePause;
         controller.TriggerClicked += HandleTriggerClick;
@@ -124,7 +126,8 @@ public class VR_ControllerInput : MonoBehaviour {
         switch (mode)
         {
             case ControllerMode.Teleport:
-                teleporter.Teleport();
+                //Do a teleport and save success result in cubeminimap to trigger minimap update
+                cubeminimap.updateTeleport = teleporter.Teleport();
                 break;
         }
     }
