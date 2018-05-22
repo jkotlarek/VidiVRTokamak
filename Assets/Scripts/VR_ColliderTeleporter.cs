@@ -14,6 +14,8 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     public float maxDist = 7f;
     public GameObject shadowGO;
     public GameObject origin;
+    public GameObject waypointPrefab;
+    public bool enableWaypoints = false;
 
     //Max height allowed
     float upperBound = 24f;
@@ -39,7 +41,9 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     Transform t { get { return origin.transform; } }
     Transform shadow { get { return shadowGO.transform; } }
     LineRenderer shadowLR;
-    
+
+    public List<GameObject> waypoints;
+
     bool skipBoundCorrection = true;
     bool charging = false;
     bool teleporting = false;
@@ -49,6 +53,7 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     // Use this for initialization
     void Start () {
         shadowLR = shadow.GetComponent<LineRenderer>();
+        waypoints = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -270,6 +275,24 @@ public class VR_ColliderTeleporter : MonoBehaviour {
 
         return newPos;
         */
+    }
+
+    public void PlaceWaypoint()
+    {
+        if (enableWaypoints)
+        {
+            for (int i = waypoints.Count - 1; i > -1; i--)
+            {
+                if (Vector3.Distance(waypoints[i].transform.position, origin.transform.position) <= 2f)
+                {
+                    Destroy(waypoints[i]);
+                    waypoints.RemoveAt(i);
+                }
+            }
+            var waypoint = Instantiate(waypointPrefab, origin.transform.position, new Quaternion());
+            waypoint.name = "Waypoint" + waypoints.Count();
+            waypoints.Add(waypoint);
+        }
     }
 
     float SigmoidInterpolation(float t)

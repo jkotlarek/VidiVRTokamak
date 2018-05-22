@@ -177,6 +177,11 @@ public class VR_ControllerInput : MonoBehaviour {
 
     public void RadialSelectTeleport()
     {
+        if (mode == ControllerMode.Teleport)
+        {
+            teleporter.PlaceWaypoint();
+        }
+
         mode = ControllerMode.Teleport;
         pointerRenderer.enabled = false;
         teleporter.EnableTeleport(true);

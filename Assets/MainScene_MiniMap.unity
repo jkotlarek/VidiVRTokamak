@@ -1592,6 +1592,7 @@ MonoBehaviour:
   maxDist: 5
   shadowGO: {fileID: 2120390717}
   origin: {fileID: 1271973395}
+  waypointPrefab: {fileID: 0}
 --- !u!114 &54875339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44536,6 +44537,7 @@ MonoBehaviour:
   maxDist: 5
   shadowGO: {fileID: 845907955}
   origin: {fileID: 1271973395}
+  waypointPrefab: {fileID: 0}
 --- !u!114 &1280849233
 MonoBehaviour:
   m_ObjectHideFlags: 0
