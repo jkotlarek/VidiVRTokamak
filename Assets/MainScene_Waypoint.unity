@@ -9679,7 +9679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &298377552
 Transform:
   m_ObjectHideFlags: 0
@@ -28926,6 +28926,10 @@ Prefab:
         type: 2}
       propertyPath: outlineColor.g
       value: 0.7655173
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661834740214974, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}

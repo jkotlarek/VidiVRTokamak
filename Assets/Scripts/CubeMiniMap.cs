@@ -32,7 +32,7 @@ public class CubeMiniMap : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Lerp minimap towards controller
-        transform.position = Vector3.MoveTowards(transform.position, FollowPosition, 1.0f) + Vector3.up * 0.2f;
+        transform.position = Vector3.MoveTowards(transform.position, FollowPosition, 1.0f);
         TrackerPosition = Vector3ComponentDivide(TrackedPosition - TokamakPosition, TokamakScale);
 
         //Update PointerPosition and its line renderer
@@ -59,8 +59,12 @@ public class CubeMiniMap : MonoBehaviour {
                 teleportHistory = transform.GetComponent<LineRenderer>();
                 teleportHistory.positionCount = 0;
             }
-            teleportHistory.positionCount++;
-            teleportHistory.SetPosition(teleportHistory.positionCount - 1, TrackerPosition);
+            if (teleportHistory.positionCount == 0 ||
+                Vector3.Distance(teleportHistory.GetPosition(teleportHistory.positionCount - 1), TrackerPosition) >= 0.05)
+            {
+                teleportHistory.positionCount++;
+                teleportHistory.SetPosition(teleportHistory.positionCount - 1, TrackerPosition);
+            }
         }
     }
 
