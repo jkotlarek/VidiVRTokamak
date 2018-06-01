@@ -27,6 +27,8 @@ public class PopulateParticles : MonoBehaviour {
     public bool serialize = false;
     public bool speedshift = true;
     public bool flushTrails = false;
+    public bool classify = false;
+    public List<int> particleMask;
     public ParticleDisplayMode currentMode;
 
     string filename = "sd";
@@ -58,13 +60,26 @@ public class PopulateParticles : MonoBehaviour {
             if (particles == null)
             {
                 particles = new List<GameObject>();
-                foreach (Particle ts in DataReader.data[(int)currentMode])
-                {
-                    particles.Add(Instantiate(particlePrefab, ts.timesteps[currentTimestep], Quaternion.identity, transform));
-                    particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
-                    particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
-                    particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
 
+                if (particleMask.Count == 0)
+                {
+                    foreach (Particle ts in DataReader.data[(int)currentMode])
+                    {
+                        particles.Add(Instantiate(particlePrefab, ts.timesteps[currentTimestep], Quaternion.identity, transform));
+                        particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
+                        particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
+                        particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
+                    }
+                }
+                else
+                {
+                    foreach (int i in particleMask)
+                    {
+                        particles.Add(Instantiate(particlePrefab, DataReader.data[(int)currentMode][i].timesteps[currentTimestep], Quaternion.identity, transform));
+                        particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
+                        particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
+                        particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
+                    }
                 }
             }
             else
@@ -76,22 +91,47 @@ public class PopulateParticles : MonoBehaviour {
                 }
 
                 float t = (frameCount % framesPerTimestep) / (float)framesPerTimestep;
-                for (int i = 0; i < DataReader.particleCount; i++)
+                if (particleMask.Count == 0)
                 {
-                    particles[i].transform.localPosition = Vector3.Lerp(
-                        DataReader.data[(int)currentMode][i].timesteps[currentTimestep],
-                        DataReader.data[(int)currentMode][i].timesteps[(currentTimestep + 1) % DataReader.timestepCount],
-                        t);
+                    for (int i = 0; i < DataReader.particleCount; i++)
+                    {
+                        particles[i].transform.localPosition = Vector3.Lerp(
+                            DataReader.data[(int)currentMode][i].timesteps[currentTimestep],
+                            DataReader.data[(int)currentMode][i].timesteps[(currentTimestep + 1) % DataReader.timestepCount],
+                            t);
 
-                    if (speedshift)
-                    {
-                        particles[i].GetComponent<Renderer>().material.SetColor("_Color", SpeedHueShift(
-                                DataReader.data[(int)currentMode][i].timesteps[currentTimestep],
-                                DataReader.data[(int)currentMode][i].timesteps[(currentTimestep + 1) % DataReader.timestepCount]));
+                        if (speedshift)
+                        {
+                            particles[i].GetComponent<Renderer>().material.SetColor("_Color", SpeedHueShift(
+                                    DataReader.data[(int)currentMode][i].timesteps[currentTimestep],
+                                    DataReader.data[(int)currentMode][i].timesteps[(currentTimestep + 1) % DataReader.timestepCount]));
+                        }
+                        else
+                        {
+                            particles[i].GetComponent<Renderer>().material.SetColor("_Color", ColorClassifier(DataReader.data[(int)currentMode][i].trapped[currentTimestep]));
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    for (int i = 0; i < particleMask.Count; i++)
                     {
-                        particles[i].GetComponent<Renderer>().material.SetColor("_Color", ColorClassifier(DataReader.data[(int)currentMode][i].trapped[currentTimestep]));
+                        int j = particleMask[i];
+                        particles[i].transform.localPosition = Vector3.Lerp(
+                            DataReader.data[(int)currentMode][j].timesteps[currentTimestep],
+                            DataReader.data[(int)currentMode][j].timesteps[(currentTimestep + 1) % DataReader.timestepCount],
+                            t);
+
+                        if (speedshift)
+                        {
+                            particles[i].GetComponent<Renderer>().material.SetColor("_Color", SpeedHueShift(
+                                    DataReader.data[(int)currentMode][j].timesteps[currentTimestep],
+                                    DataReader.data[(int)currentMode][j].timesteps[(currentTimestep + 1) % DataReader.timestepCount]));
+                        }
+                        else
+                        {
+                            particles[i].GetComponent<Renderer>().material.SetColor("_Color", ColorClassifier(DataReader.data[(int)currentMode][j].trapped[currentTimestep]));
+                        }
                     }
                 }
                 frameCount++;

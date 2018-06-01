@@ -9679,7 +9679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &298377552
 Transform:
   m_ObjectHideFlags: 0
@@ -9725,6 +9725,8 @@ MonoBehaviour:
   serialize: 0
   speedshift: 0
   flushTrails: 0
+  classify: 0
+  particleMask: 
   currentMode: 0
   currentTimestep: 0
 --- !u!114 &298377554
@@ -28805,6 +28807,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 125035339}
     m_Modifications:
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4554593225094670, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -28929,7 +28936,27 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1661834740214974, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[0]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[2]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[3]
+      value: 234
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
