@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33180515777353498}
   - component: {fileID: 23825433420788044}
   - component: {fileID: 64503755069921238}
+  - component: {fileID: 135527863876745726}
   m_Layer: 0
   m_Name: Waypoint
-  m_TagString: Untagged
+  m_TagString: Waypoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1199268255817878}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8468709, y: 12.37976, z: 11.825422}
-  m_LocalScale: {x: 2, y: 0.01, z: 2}
+  m_LocalPosition: {x: -0.734, y: 18.76, z: -12.541}
+  m_LocalScale: {x: 1.25, y: 0.05, z: 1.25}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -91,9 +92,21 @@ MeshCollider:
   m_GameObject: {fileID: 1199268255817878}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!135 &135527863876745726
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1199268255817878}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.45
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

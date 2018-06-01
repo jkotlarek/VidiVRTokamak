@@ -73,8 +73,7 @@ public class VR_ControllerInput : MonoBehaviour {
         if (mode == ControllerMode.Teleport && padTouched)
         {
             float t = controller.GetTouchpadAxis().y;
-            teleporter.maxDist += (t - padTouchY)*4;
-            Mathf.Clamp(teleporter.maxDist, 1, 11);
+            teleporter.maxDist = Mathf.Clamp(teleporter.maxDist + (t-padTouchY)*4, 1, 11);
             padTouchY = t;
         }
     }

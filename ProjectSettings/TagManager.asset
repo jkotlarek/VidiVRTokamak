@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Particle
   - Slice
+  - Waypoint
   layers:
   - Default
   - TransparentFX

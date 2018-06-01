@@ -201,6 +201,12 @@ public class VR_ColliderTeleporter : MonoBehaviour {
         // Calculate new position
         Vector3 newPos = t.position + (ray.origin + (ray.direction * dist)) - headPosOnGround;
 
+        //always snap to waypoints, even if out of range.
+        if (hitInfo.transform != null && hitInfo.transform.CompareTag("Waypoint"))
+        {
+            newPos = hitInfo.transform.position;
+        }
+
         return newPos;
         //if (skipBoundCorrection) { return newPos; }
         /*
