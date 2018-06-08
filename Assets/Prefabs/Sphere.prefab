@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23233569614250412}
   - component: {fileID: 135805329639439090}
   - component: {fileID: 96367203294773276}
+  - component: {fileID: 114675882929151206}
   m_Layer: 8
   m_Name: Sphere
   m_TagString: Particle
@@ -177,6 +178,19 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.02
   m_Autodestruct: 0
+--- !u!114 &114675882929151206
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718386794189806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3af11b167570bee4ea7e5bc409a4becc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classification: Normal
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!135 &135805329639439090
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -9726,7 +9726,7 @@ MonoBehaviour:
   speedshift: 0
   flushTrails: 0
   classify: 0
-  particleMask: 
+  particleMask: 0000000001000000020000000300000004000000050000000600000007000000
   currentMode: 0
   currentTimestep: 0
 --- !u!114 &298377554
@@ -28810,7 +28810,7 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.size
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4554593225094670, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_LocalPosition.x
@@ -28941,22 +28941,47 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[0]
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[1]
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[2]
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[3]
-      value: 234
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[4]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[5]
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[6]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[7]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: classify
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}

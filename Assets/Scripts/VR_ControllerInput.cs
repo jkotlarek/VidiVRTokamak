@@ -103,8 +103,18 @@ public class VR_ControllerInput : MonoBehaviour {
         switch (mode)
         {
             case ControllerMode.Highlight:
-                if(target != null)
-                    particleScript.HighlightParticle(target.gameObject);
+                if (target != null)
+                {
+                    if (particleScript.classify)
+                    {
+                        particleScript.HighlightParticle(target.gameObject);
+                    }
+                    else
+                    {
+                        particleScript.ClassifyParticle(target.gameObject);
+                    }
+                }
+                    
                 break;
 
             case ControllerMode.Options:
@@ -126,7 +136,10 @@ public class VR_ControllerInput : MonoBehaviour {
         {
             case ControllerMode.Teleport:
                 //Do a teleport and save success result in cubeminimap to trigger minimap update
-                cubeminimap.updateTeleport = teleporter.Teleport();
+                if (cubeminimap != null)
+                {
+                    cubeminimap.updateTeleport = teleporter.Teleport();
+                }
                 break;
         }
     }

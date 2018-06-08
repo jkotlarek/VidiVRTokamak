@@ -128,10 +128,13 @@ public class PopulateParticles : MonoBehaviour {
                                     DataReader.data[(int)currentMode][j].timesteps[currentTimestep],
                                     DataReader.data[(int)currentMode][j].timesteps[(currentTimestep + 1) % DataReader.timestepCount]));
                         }
-                        else
+                        else if (classify)
                         {
                             particles[i].GetComponent<Renderer>().material.SetColor("_Color", ColorClassifier(DataReader.data[(int)currentMode][j].trapped[currentTimestep]));
                         }
+//                      else if (identify) {
+//                          do nothing;
+//                      }
                     }
                 }
                 frameCount++;
@@ -173,7 +176,6 @@ public class PopulateParticles : MonoBehaviour {
     /// <param name="particle"></param>
     public void HighlightParticle(GameObject particle)
     {
-        Debug.Log("wat? " + particle.name);
         if (highlightedParticles.Contains(particle))
         {
             highlightedParticles.Remove(particle);
@@ -214,6 +216,34 @@ public class PopulateParticles : MonoBehaviour {
             tr.enabled = trails;
         }
         highlightedParticles.Clear();
+    }
+
+    //Cycles through classification colors: normal -> passing -> trapped -> normal...
+    public void ClassifyParticle(GameObject particle)
+    {
+        var pd = particle.GetComponent<ParticleData>();
+        if (pd.color == null)
+        {
+            pd.color = normalColor;
+            pd.classification = "Normal";
+        }
+        else if (pd.color == normalColor)
+        {
+            pd.color = passingColor;
+            pd.classification = "Passing";
+        }
+        else if (pd.color == passingColor)
+        {
+            pd.color = trappedColor;
+            pd.classification = "Trapped";
+        }
+        else
+        {
+            pd.color = normalColor;
+            pd.classification = "Normal";
+        }
+
+        pd.GetComponent<Renderer>().material.SetColor("_Color", pd.color);
     }
 
     public void ToggleTrails()

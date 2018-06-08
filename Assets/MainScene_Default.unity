@@ -1512,13 +1512,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f4d838bab67c8448026128f7905c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 6
+  mode: 0
   tRate: 0.1
   threshold: 0.5
-  chargeTime: 25
+  chargeTime: 1
   maxDist: 5
   shadowGO: {fileID: 2120390717}
   origin: {fileID: 1271973395}
+  waypointPrefab: {fileID: 0}
+  enableWaypoints: 0
+  waypoints: []
 --- !u!114 &54875339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9712,8 +9715,8 @@ MonoBehaviour:
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   shiftedColor: {r: 0, g: 0.924, b: 1, a: 0}
   outlineColor: {r: 1, g: 0.7655173, b: 0, a: 1}
-  trappedColor: {r: 1, g: 0, b: 0, a: 0}
-  passingColor: {r: 0, g: 0, b: 1, a: 0}
+  trappedColor: {r: 0.83823526, g: 0.33665434, b: 0.22188582, a: 0}
+  passingColor: {r: 0.29746974, g: 0.6831545, b: 0.9632353, a: 0}
   maxSpeed: 0.075
   highlightedParticles: []
   paused: 0
@@ -9721,6 +9724,8 @@ MonoBehaviour:
   serialize: 0
   speedshift: 0
   flushTrails: 0
+  classify: 0
+  particleMask: 0000000001000000020000000300000004000000050000000600000007000000
   currentMode: 0
   currentTimestep: 0
 --- !u!114 &298377554
@@ -28801,6 +28806,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 125035339}
     m_Modifications:
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4554593225094670, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -28886,32 +28896,32 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: trappedColor.r
-      value: 1
+      value: 0.83823526
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: trappedColor.g
-      value: 0
+      value: 0.33665434
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: trappedColor.b
-      value: 0
+      value: 0.22188582
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: passingColor.r
-      value: 0
+      value: 0.29746974
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: passingColor.g
-      value: 0
+      value: 0.6831545
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: passingColor.b
-      value: 1
+      value: 0.9632353
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
@@ -40910,13 +40920,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f4d838bab67c8448026128f7905c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 6
+  mode: 0
   tRate: 0.1
   threshold: 0.5
-  chargeTime: 25
+  chargeTime: 1
   maxDist: 5
   shadowGO: {fileID: 845907955}
   origin: {fileID: 1271973395}
+  waypointPrefab: {fileID: 0}
+  enableWaypoints: 0
+  waypoints: []
 --- !u!114 &1280849233
 MonoBehaviour:
   m_ObjectHideFlags: 0
