@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum ParticleDisplayMode
 {
@@ -11,6 +14,7 @@ public class PopulateParticles : MonoBehaviour {
 
     public GameObject particlePrefab;
     public GameObject highlightedParticlePrefab;
+    public GameObject origin;
     public int framesPerTimestep = 5;
     public int maxFramesPerTimestep = 20;
     public Material material;
@@ -29,6 +33,8 @@ public class PopulateParticles : MonoBehaviour {
     public bool flushTrails = false;
     public bool classify = false;
     public List<int> particleMask;
+    public int taskNum;
+    public string username;
     public ParticleDisplayMode currentMode;
 
     string filename = "sd";
@@ -39,6 +45,7 @@ public class PopulateParticles : MonoBehaviour {
     Color noOutline;
     TrailRenderer defaultTrail;
     TrailRenderer highlightTrail;
+    Vector3 startPosition;
 
     public int currentTimestep = 0;
     int frameCount = 0;
@@ -50,6 +57,45 @@ public class PopulateParticles : MonoBehaviour {
         noOutline = new Color(0, 0, 0, 0);
         defaultTrail = particlePrefab.GetComponent<TrailRenderer>();
         highlightTrail = highlightedParticlePrefab.GetComponent<TrailRenderer>();
+        startPosition = origin.transform.position;
+    }
+
+
+    void OnApplicationQuit()
+    {
+        string file = SceneManager.GetActiveScene().name.Replace(' ', '_') + "_task" + taskNum + "_user_" + username + ".txt";
+        Debug.Log("Outputting Run Statistics to " + file);
+        Debug.Log(Application.dataPath);
+        Debug.Log(DateTime.Now.ToString());
+
+        //Appends to file
+        StreamWriter f = new StreamWriter(Application.dataPath + "/Tests/" + file, true);
+
+        //New section of file
+        f.WriteLine();
+        f.WriteLine("------------------------------------------");
+        f.WriteLine("---------- {0} ----------", DateTime.Now.ToString());
+        f.WriteLine("------------------------------------------");
+
+        //Results
+        f.WriteLine("Task: {0}", taskNum);
+        f.WriteLine("User: {0}", username);
+        if (particleMask.Count != 0)
+        {
+            f.WriteLine("Particle Mask:");
+            f.WriteLine("\tIndex\tClassification\tHighlighted");
+            foreach (GameObject p in particles)
+            {
+                ParticleData d = p.GetComponent<ParticleData>();
+                bool highlighted = highlightedParticles.Contains(p);
+                f.WriteLine("\t{0}\t\t{1}\t\t\t{2}", d.index, d.classification, highlighted);
+            }
+        }
+        f.WriteLine("Start Position: {0}", startPosition.ToString());
+        f.WriteLine("Final Position: {0}", origin.transform.position.ToString());
+
+        //Save changes
+        f.Close();
     }
 
     // Update is called once per frame
@@ -79,6 +125,7 @@ public class PopulateParticles : MonoBehaviour {
                         particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
                         particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
                         particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
+                        particles[particles.Count - 1].GetComponent<ParticleData>().index = i;
                     }
                 }
             }
