@@ -1597,10 +1597,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f4d838bab67c8448026128f7905c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 6
   tRate: 0.1
-  threshold: 0.5
-  chargeTime: 0
+  threshold: 0
+  chargeTime: 5
   maxDist: 5
   shadowGO: {fileID: 2120390717}
   origin: {fileID: 1271973395}
@@ -10395,6 +10395,7 @@ MonoBehaviour:
     type: 2}
   highlightedParticlePrefab: {fileID: 1322475916482362, guid: 9e91bdf6f78908d46bedd0addd67a36c,
     type: 2}
+  origin: {fileID: 0}
   framesPerTimestep: 3
   maxFramesPerTimestep: 10
   material: {fileID: 2100000, guid: 7fcfba753f5d1ab4a87bea999db4b758, type: 2}
@@ -10411,7 +10412,9 @@ MonoBehaviour:
   speedshift: 0
   flushTrails: 0
   classify: 0
-  particleMask: 0000000001000000020000000300000004000000050000000600000007000000
+  particleMask: 08000000090000000a0000000b0000000c0000000d0000000e0000000f000000
+  taskNum: 0
+  username: 
   currentMode: 0
   currentTimestep: 0
 --- !u!114 &298377554
@@ -30627,6 +30630,46 @@ Prefab:
       propertyPath: outlineColor.g
       value: 0.7655173
       objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[1]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[2]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[3]
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[4]
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[5]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[6]
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[7]
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
   m_IsPrefabParent: 0
@@ -42856,10 +42899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f4d838bab67c8448026128f7905c48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
+  mode: 6
   tRate: 0.1
-  threshold: 0.5
-  chargeTime: 0
+  threshold: 0
+  chargeTime: 5
   maxDist: 5
   shadowGO: {fileID: 845907955}
   origin: {fileID: 1271973395}
@@ -48432,7 +48475,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1473949159}
   m_LocalRotation: {x: 0.60963935, y: -0.35824564, z: 0.35824564, w: 0.60963935}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1.17, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 125035339}

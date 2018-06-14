@@ -65,7 +65,7 @@ public class VR_ColliderTeleporter : MonoBehaviour {
             shadow.position = BoundedTeleport();
             shadowLR.SetPositions(new Vector3[] { transform.position,  Vector3.Lerp(transform.position, shadow.position, t*t)});
             //Debug.Log(charge);
-            if(charging && ++charge == chargeTime)
+            if(charging && ++charge == chargeTime || chargeTime == 0)
             {
                 Debug.Log("ding!");
                 shadowLR.widthMultiplier = 0.2f;

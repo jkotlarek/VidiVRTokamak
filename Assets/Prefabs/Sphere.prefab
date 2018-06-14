@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af11b167570bee4ea7e5bc409a4becc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  index: -1
   classification: Normal
   color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!135 &135805329639439090
@@ -201,5 +202,5 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}

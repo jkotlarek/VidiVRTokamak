@@ -46,8 +46,10 @@ public class VR_ControllerInput : MonoBehaviour {
         pointer.DestinationMarkerEnter += HandlePointerEnter;
         pointer.DestinationMarkerExit += HandlePointerExit;
 
-        //if (mode != ControllerMode.Highlight) { pointerRenderer.enabled = false; }
-    }
+        RadialSelectHighlight();
+
+    //if (mode != ControllerMode.Highlight) { pointerRenderer.enabled = false; }
+}
 
     /*
     private void OnEnable()
@@ -136,9 +138,10 @@ public class VR_ControllerInput : MonoBehaviour {
         {
             case ControllerMode.Teleport:
                 //Do a teleport and save success result in cubeminimap to trigger minimap update
+                var v = teleporter.Teleport();
                 if (cubeminimap != null)
                 {
-                    cubeminimap.updateTeleport = teleporter.Teleport();
+                    cubeminimap.updateTeleport = v;
                 }
                 break;
         }
