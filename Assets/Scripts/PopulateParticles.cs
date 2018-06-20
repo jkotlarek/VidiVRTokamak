@@ -27,6 +27,7 @@ public class PopulateParticles : MonoBehaviour {
     public float maxSpeed = 0.075f;
     public List<GameObject> highlightedParticles;
     public bool paused = false;
+    public bool randomStartPosition = false;
     public bool trails = true;
     public bool serialize = false;
     public bool speedshift = true;
@@ -62,6 +63,15 @@ public class PopulateParticles : MonoBehaviour {
         startPosition = origin.transform.position;
         startTime = DateTime.Now;
         positions = new List<Vector3>();
+
+        if (randomStartPosition)
+        {
+            float r = UnityEngine.Random.Range(11, 16);
+            float t = UnityEngine.Random.Range(0, Mathf.PI * 2);
+            float y = UnityEngine.Random.Range(17, 19);
+
+            origin.transform.position = new Vector3(r * Mathf.Sin(t), y, r * Mathf.Cos(t));
+        }
     }
 
 

@@ -9309,10 +9309,9 @@ MonoBehaviour:
     type: 2}
   highlightedParticlePrefab: {fileID: 1322475916482362, guid: 9e91bdf6f78908d46bedd0addd67a36c,
     type: 2}
-  origin: {fileID: 0}
+  origin: {fileID: 1271973395}
   framesPerTimestep: 3
   maxFramesPerTimestep: 10
-  material: {fileID: 2100000, guid: 7fcfba753f5d1ab4a87bea999db4b758, type: 2}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   shiftedColor: {r: 0, g: 0.924, b: 1, a: 0}
   outlineColor: {r: 1, g: 0.7655173, b: 0, a: 1}
@@ -9320,18 +9319,19 @@ MonoBehaviour:
   passingColor: {r: 0.29746974, g: 0.6831545, b: 0.9632353, a: 0}
   maxSpeed: 0.075
   highlightedParticles: []
-  paused: 0
+  paused: 1
+  randomStartPosition: 1
   trails: 1
   serialize: 0
   speedshift: 0
   flushTrails: 0
   classify: 0
-  particleMask: 08000000090000000a0000000b0000000c0000000d0000000e0000000f000000
+  particleMask: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b000000
   taskNum: 0
   username: 
   currentMode: 0
   positions: []
-  currentTimestep: 0
+  currentTimestep: 1
 --- !u!114 &298377554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9347,7 +9347,7 @@ MonoBehaviour:
   particleCount: 0
   timestepCount: 0
   file: xgca_mira044_ptl.dat
-  runOnce: 1
+  runOnce: 0
   isReady: 0
 --- !u!1 &298479245
 GameObject:
@@ -28707,7 +28707,7 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.size
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4554593225094670, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_LocalPosition.x
@@ -28774,7 +28774,7 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: paused
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114850712346881594, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
@@ -28784,7 +28784,7 @@ Prefab:
     - target: {fileID: 114850712346881594, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: runOnce
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114850712346881594, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
@@ -28834,43 +28834,83 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[0]
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[1]
-      value: 9
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[2]
-      value: 10
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[3]
-      value: 11
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[4]
-      value: 12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[5]
-      value: 13
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[6]
-      value: 14
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.data[7]
-      value: 15
+      value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: randomStartPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: taskNum
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[8]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[9]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[10]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[11]
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: currentTimestep
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: origin
+      value: 
+      objectReference: {fileID: 1271973395}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
   m_IsPrefabAsset: 0

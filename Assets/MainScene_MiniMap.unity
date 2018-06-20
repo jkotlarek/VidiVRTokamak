@@ -9250,7 +9250,6 @@ MonoBehaviour:
   origin: {fileID: 1271973395}
   framesPerTimestep: 3
   maxFramesPerTimestep: 10
-  material: {fileID: 2100000, guid: 7fcfba753f5d1ab4a87bea999db4b758, type: 2}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   shiftedColor: {r: 0, g: 0.924, b: 1, a: 0}
   outlineColor: {r: 1, g: 0.7655173, b: 0, a: 1}
@@ -9259,12 +9258,13 @@ MonoBehaviour:
   maxSpeed: 0.075
   highlightedParticles: []
   paused: 1
+  randomStartPosition: 1
   trails: 1
   serialize: 0
   speedshift: 0
   flushTrails: 0
   classify: 0
-  particleMask: 0000000001000000020000000300000004000000050000000600000007000000
+  particleMask: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b000000
   taskNum: 0
   username: 
   currentMode: 0
@@ -9285,7 +9285,7 @@ MonoBehaviour:
   particleCount: 0
   timestepCount: 0
   file: xgca_mira044_ptl.dat
-  runOnce: 1
+  runOnce: 0
   isReady: 0
 --- !u!1 &298479245
 GameObject:
@@ -29299,7 +29299,7 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.size
-      value: 8
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4554593225094670, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_LocalPosition.x
@@ -29376,7 +29376,7 @@ Prefab:
     - target: {fileID: 114850712346881594, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: runOnce
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114850712346881594, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
@@ -29471,6 +29471,31 @@ Prefab:
         type: 2}
       propertyPath: currentTimestep
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: randomStartPosition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[8]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[9]
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[10]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particleMask.Array.data[11]
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
@@ -55302,7 +55327,7 @@ MonoBehaviour:
   trackerPosition: {fileID: 133410128}
   tokamakForScale: {fileID: 125035339}
   pointerPosition: {fileID: 1881425809}
-  trackedPointerPosition: {fileID: 845907960}
+  trackedPointerPosition: {fileID: 2120390723}
   updateTeleport: 1
 --- !u!120 &1708973711
 LineRenderer:
