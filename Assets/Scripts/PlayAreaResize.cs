@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Valve.VR;
+using VRTK;
 
 public class PlayAreaResize : MonoBehaviour {
 
@@ -12,12 +12,11 @@ public class PlayAreaResize : MonoBehaviour {
 
     private void OnEnable()
     {
-        HmdQuad_t rect = new HmdQuad_t();
-        SteamVR_PlayArea.GetBounds(SteamVR_PlayArea.Size.Calibrated, ref rect);
+        var corners = VRTK_SDK_Bridge.GetPlayAreaVertices();
         Vector3 newScale = new Vector3(
-            Mathf.Abs(rect.vCorners0.v0 - rect.vCorners2.v0), 
+            Mathf.Abs(corners[0].x - corners[2].x), 
             this.transform.localScale.y, 
-            Mathf.Abs(rect.vCorners0.v2 - rect.vCorners2.v2));
+            Mathf.Abs(corners[0].z - corners[2].z));
         
         //return without doing anything if failed
         if (newScale.x == 0 || newScale.y == 0)

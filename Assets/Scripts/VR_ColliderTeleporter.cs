@@ -179,7 +179,8 @@ public class VR_ColliderTeleporter : MonoBehaviour {
     Vector3 BoundedTeleport()
     {
         // Create a Ray from the origin of the controller in the direction that the controller is pointing
-        Ray ray = new Ray(this.transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, transform.forward);
+        Debug.DrawRay(transform.position, transform.forward,  Color.red, 1.0f);
 
         // Set defaults
         bool hasTarget = false;
@@ -196,11 +197,11 @@ public class VR_ColliderTeleporter : MonoBehaviour {
 
         float y = t.position.y;
         // Get the current Camera (head) position on the ground relative to the world
-        Vector3 headPosOnGround = new Vector3(SteamVR_Render.Top().head.position.x, y, SteamVR_Render.Top().head.position.z);
+        //Vector3 headPosOnGround = new Vector3(transform.position.x, y, transform.position.y);
 
         // Calculate new position
-        Vector3 newPos = t.position + (ray.origin + (ray.direction * dist)) - headPosOnGround;
-
+        //Vector3 newPos = t.position + (ray.origin + (ray.direction * dist)) - headPosOnGround;
+        Vector3 newPos = ray.origin + (ray.direction * dist);
         //always snap to waypoints, even if out of range.
         if (hitInfo.transform != null && hitInfo.transform.CompareTag("Waypoint"))
         {

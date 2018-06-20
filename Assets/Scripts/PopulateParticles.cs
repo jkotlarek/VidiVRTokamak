@@ -17,7 +17,7 @@ public class PopulateParticles : MonoBehaviour {
     public GameObject origin;
     public int framesPerTimestep = 5;
     public int maxFramesPerTimestep = 20;
-    public Material material;
+    //public Material material;
     public Color normalColor;
     public Color shiftedColor;
     public Color outlineColor;
@@ -60,6 +60,7 @@ public class PopulateParticles : MonoBehaviour {
         defaultTrail = particlePrefab.GetComponent<TrailRenderer>();
         highlightTrail = highlightedParticlePrefab.GetComponent<TrailRenderer>();
         startPosition = origin.transform.position;
+        startTime = DateTime.Now;
         positions = new List<Vector3>();
     }
 
@@ -68,26 +69,31 @@ public class PopulateParticles : MonoBehaviour {
     {
         positions.Add(origin.transform.position);
 
-        DateTime now = DateTime.Now;
-        string file = Application.dataPath + "/Tests/" + now.ToString("s") + ".json";
+        var now = DateTime.Now;
+        var ts = now - startTime;
+        string file = Application.dataPath + "/Tests/" + now.ToString("s").Replace(':','-') + ".json";
         Debug.Log("Outputting Run Statistics to " + file);
 
         var rs = new RunStatistics();
-        rs.Date = now;
+        rs.Date = now.ToString("s");
         rs.UserName = username;
         rs.TaskNum = taskNum;
         rs.Environment = SceneManager.GetActiveScene().name.Split('_')[1];
-        rs.TaskTime = now - startTime;
-        rs.Particles = SerializableParticle.fromGOList(particles);
+        rs.TaskTime = ts.TotalSeconds;
+        if (particles != null)
+            rs.Particles = SerializableParticle.fromGOList(particles);
         rs.UserPath = SerializableVector3.fromList(positions);
 
         string json = JsonUtility.ToJson(rs, true);
+
+        Debug.Log(ts.TotalSeconds);
+        File.WriteAllText(file, json);
     }
 
     // Update is called once per frame
     void Update () {
 
-        if (DataReader.isReady && !paused)
+        if (DataReader.isReady)
         {
             if (particles == null)
             {
@@ -98,9 +104,9 @@ public class PopulateParticles : MonoBehaviour {
                     foreach (Particle ts in DataReader.data[(int)currentMode])
                     {
                         particles.Add(Instantiate(particlePrefab, ts.timesteps[currentTimestep], Quaternion.identity, transform));
-                        particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
-                        particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
-                        particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
+                        //particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
+                        //particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
+                        //particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
                     }
                 }
                 else
@@ -108,13 +114,13 @@ public class PopulateParticles : MonoBehaviour {
                     foreach (int i in particleMask)
                     {
                         particles.Add(Instantiate(particlePrefab, DataReader.data[(int)currentMode][i].timesteps[currentTimestep], Quaternion.identity, transform));
-                        particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
-                        particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
-                        particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
+                        //particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
+                        //particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
+                        //particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
                     }
                 }
             }
-            else
+            else if (!paused)
             {
                 if (frameCount % framesPerTimestep == 0)
                 {
@@ -285,11 +291,11 @@ public class PopulateParticles : MonoBehaviour {
     public void FlushTrails()
     {
         Debug.Log("flush trails");
-        foreach (GameObject p in particles)
-        {
+        //foreach (GameObject p in particles)
+        //{
 
-            p.GetComponent<TrailRenderer>().Clear();
-        }
+        //    p.GetComponent<TrailRenderer>().Clear();
+        //}
     }
     
 }
@@ -357,8 +363,8 @@ public class RunStatistics
     public int TaskNum;
     public string Environment;
     public string UserName;
-    public DateTime Date;
-    public TimeSpan TaskTime;
+    public string Date;
+    public double TaskTime;
     public List<SerializableParticle> Particles;
     public List<SerializableVector3> UserPath;
 }
