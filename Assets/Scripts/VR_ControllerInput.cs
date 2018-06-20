@@ -11,12 +11,12 @@ public enum ControllerMode
 public class VR_ControllerInput : MonoBehaviour {
     
     VRTK_ControllerEvents controller;
-    VRTK_Pointer pointer;
-    VRTK_BasePointerRenderer pointerRenderer;
-    VRTK_ControllerTooltips controllerTooltips;
+    //VRTK_Pointer pointer;
+    //VRTK_BasePointerRenderer pointerRenderer;
+    //VRTK_ControllerTooltips controllerTooltips;
     VR_ColliderTeleporter teleporter;
     PopulateParticles particleScript;
-    VisibilitySegments visibilitySegments;
+    //VisibilitySegments visibilitySegments;
     CubeMiniMap cubeminimap;
 
     Transform target;
@@ -28,28 +28,32 @@ public class VR_ControllerInput : MonoBehaviour {
 
     // Use this for initialization
     protected void Start () {
-        visibilitySegments = FindObjectOfType<VisibilitySegments>();
+        //visibilitySegments = FindObjectOfType<VisibilitySegments>();
         particleScript = FindObjectOfType<PopulateParticles>();
         controller = GetComponent<VRTK_ControllerEvents>();
         teleporter = GetComponent<VR_ColliderTeleporter>();
-        pointer = GetComponent<VRTK_Pointer>();
-        pointerRenderer = GetComponent<VRTK_BasePointerRenderer>();
-        controllerTooltips = GetComponentInChildren<VRTK_ControllerTooltips>();
+        //pointer = GetComponent<VRTK_Pointer>();
+        //pointerRenderer = GetComponent<VRTK_BasePointerRenderer>();
+        //controllerTooltips = GetComponentInChildren<VRTK_ControllerTooltips>();
         cubeminimap = FindObjectOfType<CubeMiniMap>();
 
-        controller.GripPressed += TogglePause;
+        //controller.GripPressed += TogglePause;
+        controller.GripPressed += PlaceWaypoint;
         controller.TriggerClicked += HandleTriggerClick;
         controller.TriggerUnclicked += HandleTriggerUnclick;
-        controller.ButtonTwoPressed += ToggleTooltips;
+        //controller.ButtonTwoPressed += ToggleTooltips;
         controller.TouchpadTouchStart += HandleTouchpadTouchStart;
         controller.TouchpadTouchEnd += HandleTouchpadTouchEnd;
-        pointer.DestinationMarkerEnter += HandlePointerEnter;
-        pointer.DestinationMarkerExit += HandlePointerExit;
+        //pointer.DestinationMarkerEnter += HandlePointerEnter;
+        //pointer.DestinationMarkerExit += HandlePointerExit;
 
-        RadialSelectHighlight();
+        if (mode == ControllerMode.Teleport)
+        {
+            teleporter.EnableTeleport(true);
+        }
 
-    //if (mode != ControllerMode.Highlight) { pointerRenderer.enabled = false; }
-}
+        //if (mode != ControllerMode.Highlight) { pointerRenderer.enabled = false; }
+    }
 
     /*
     private void OnEnable()
@@ -79,7 +83,13 @@ public class VR_ControllerInput : MonoBehaviour {
             padTouchY = t;
         }
     }
+    
+    private void PlaceWaypoint(object sender, ControllerInteractionEventArgs e)
+    {
+        teleporter.PlaceWaypoint();
+    }
 
+/*
     private void TogglePause(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("GripClicked");
@@ -98,6 +108,7 @@ public class VR_ControllerInput : MonoBehaviour {
     {
         controllerTooltips.ToggleTips(tooltipState = !tooltipState);
     }
+*/
 
     private void HandleTriggerClick(object sender, ControllerInteractionEventArgs e)
     {
@@ -105,18 +116,6 @@ public class VR_ControllerInput : MonoBehaviour {
         switch (mode)
         {
             case ControllerMode.Highlight:
-                if (target != null)
-                {
-                    if (particleScript.classify)
-                    {
-                        particleScript.HighlightParticle(target.gameObject);
-                    }
-                    else
-                    {
-                        particleScript.ClassifyParticle(target.gameObject);
-                    }
-                }
-                    
                 break;
 
             case ControllerMode.Options:
@@ -139,6 +138,7 @@ public class VR_ControllerInput : MonoBehaviour {
             case ControllerMode.Teleport:
                 //Do a teleport and save success result in cubeminimap to trigger minimap update
                 var v = teleporter.Teleport();
+                particleScript.positions.Add(particleScript.origin.transform.position);
                 if (cubeminimap != null)
                 {
                     cubeminimap.updateTeleport = v;
@@ -147,6 +147,7 @@ public class VR_ControllerInput : MonoBehaviour {
         }
     }
 
+/*
     private void HandlePointerEnter(object sender, DestinationMarkerEventArgs e)
     {
         Debug.Log("pointer enter: " + e.target);
@@ -162,6 +163,7 @@ public class VR_ControllerInput : MonoBehaviour {
         Debug.Log("pointer exit");
         target = null;
     }
+*/
 
     private void HandleTouchpadTouchStart(object sender, ControllerInteractionEventArgs e)
     {
@@ -176,7 +178,7 @@ public class VR_ControllerInput : MonoBehaviour {
     {
         padTouched = false;
     }
-
+/*
     public void RadialSelectHighlight()
     {
         mode = ControllerMode.Highlight;
@@ -209,8 +211,8 @@ public class VR_ControllerInput : MonoBehaviour {
         //pointerRenderer.enabled = false;
         //teleporter.EnableTeleport(false);
     }
-
-    /*
+*/
+/*
     public void DPadToggle(object sender, ClickedEventArgs e)
     {
         //bottom
@@ -275,5 +277,5 @@ public class VR_ControllerInput : MonoBehaviour {
     {
         particleScript.ClearHighlight();
     }
-    */
+*/
 }

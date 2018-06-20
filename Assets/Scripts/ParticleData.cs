@@ -1,11 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class ParticleData : MonoBehaviour {
 
-    public int index = -1;
-    public string classification = "Normal";
-    public Color color;
+    public bool touched = false;
+
+    void Start()
+    {
+        GetComponent<VRTK_InteractableObject>().InteractableObjectTouched += Touch;
+    }
+
+    void Touch(object sender, InteractableObjectEventArgs e)
+    {
+        touched = true;
+    }
 
 }

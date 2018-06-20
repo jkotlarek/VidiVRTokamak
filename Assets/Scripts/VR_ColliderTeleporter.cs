@@ -289,12 +289,16 @@ public class VR_ColliderTeleporter : MonoBehaviour {
         {
             for (int i = waypoints.Count - 1; i > -1; i--)
             {
-                if (Vector3.Distance(waypoints[i].transform.position, origin.transform.position) <= 2f)
+                float d = Vector3.Distance(waypoints[i].transform.position, origin.transform.position);
+                if (d <= 0.1f)
                 {
                     Destroy(waypoints[i]);
                     waypoints.RemoveAt(i);
+                    return;
                 }
             }
+
+            
             var waypoint = Instantiate(waypointPrefab, origin.transform.position, new Quaternion());
             waypoint.name = "Waypoint" + waypoints.Count();
             waypoints.Add(waypoint);

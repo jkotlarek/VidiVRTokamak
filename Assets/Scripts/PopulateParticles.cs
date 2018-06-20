@@ -36,6 +36,7 @@ public class PopulateParticles : MonoBehaviour {
     public int taskNum;
     public string username;
     public ParticleDisplayMode currentMode;
+    public List<Vector3> positions;
 
     string filename = "sd";
     float flatSpeedFactor = 5f;
@@ -46,6 +47,7 @@ public class PopulateParticles : MonoBehaviour {
     TrailRenderer defaultTrail;
     TrailRenderer highlightTrail;
     Vector3 startPosition;
+    DateTime startTime;
 
     public int currentTimestep = 0;
     int frameCount = 0;
@@ -58,44 +60,28 @@ public class PopulateParticles : MonoBehaviour {
         defaultTrail = particlePrefab.GetComponent<TrailRenderer>();
         highlightTrail = highlightedParticlePrefab.GetComponent<TrailRenderer>();
         startPosition = origin.transform.position;
+        positions = new List<Vector3>();
     }
 
 
     void OnApplicationQuit()
     {
-        string file = SceneManager.GetActiveScene().name.Replace(' ', '_') + "_task" + taskNum + "_user_" + username + ".txt";
+        positions.Add(origin.transform.position);
+
+        DateTime now = DateTime.Now;
+        string file = Application.dataPath + "/Tests/" + now.ToString("s") + ".json";
         Debug.Log("Outputting Run Statistics to " + file);
-        Debug.Log(Application.dataPath);
-        Debug.Log(DateTime.Now.ToString());
 
-        //Appends to file
-        StreamWriter f = new StreamWriter(Application.dataPath + "/Tests/" + file, true);
+        var rs = new RunStatistics();
+        rs.Date = now;
+        rs.UserName = username;
+        rs.TaskNum = taskNum;
+        rs.Environment = SceneManager.GetActiveScene().name.Split('_')[1];
+        rs.TaskTime = now - startTime;
+        rs.Particles = SerializableParticle.fromGOList(particles);
+        rs.UserPath = SerializableVector3.fromList(positions);
 
-        //New section of file
-        f.WriteLine();
-        f.WriteLine("------------------------------------------");
-        f.WriteLine("---------- {0} ----------", DateTime.Now.ToString());
-        f.WriteLine("------------------------------------------");
-
-        //Results
-        f.WriteLine("Task: {0}", taskNum);
-        f.WriteLine("User: {0}", username);
-        if (particleMask.Count != 0)
-        {
-            f.WriteLine("Particle Mask:");
-            f.WriteLine("\tIndex\tClassification\tHighlighted");
-            foreach (GameObject p in particles)
-            {
-                ParticleData d = p.GetComponent<ParticleData>();
-                bool highlighted = highlightedParticles.Contains(p);
-                f.WriteLine("\t{0}\t\t{1}\t\t\t{2}", d.index, d.classification, highlighted);
-            }
-        }
-        f.WriteLine("Start Position: {0}", startPosition.ToString());
-        f.WriteLine("Final Position: {0}", origin.transform.position.ToString());
-
-        //Save changes
-        f.Close();
+        string json = JsonUtility.ToJson(rs, true);
     }
 
     // Update is called once per frame
@@ -125,7 +111,6 @@ public class PopulateParticles : MonoBehaviour {
                         particles[particles.Count - 1].GetComponent<Renderer>().material = new Material(material);
                         particles[particles.Count - 1].GetComponent<TrailRenderer>().Clear();
                         particles[particles.Count - 1].GetComponent<TrailRenderer>().enabled = trails;
-                        particles[particles.Count - 1].GetComponent<ParticleData>().index = i;
                     }
                 }
             }
@@ -265,34 +250,6 @@ public class PopulateParticles : MonoBehaviour {
         highlightedParticles.Clear();
     }
 
-    //Cycles through classification colors: normal -> passing -> trapped -> normal...
-    public void ClassifyParticle(GameObject particle)
-    {
-        var pd = particle.GetComponent<ParticleData>();
-        if (pd.color == null)
-        {
-            pd.color = normalColor;
-            pd.classification = "Normal";
-        }
-        else if (pd.color == normalColor)
-        {
-            pd.color = passingColor;
-            pd.classification = "Passing";
-        }
-        else if (pd.color == passingColor)
-        {
-            pd.color = trappedColor;
-            pd.classification = "Trapped";
-        }
-        else
-        {
-            pd.color = normalColor;
-            pd.classification = "Normal";
-        }
-
-        pd.GetComponent<Renderer>().material.SetColor("_Color", pd.color);
-    }
-
     public void ToggleTrails()
     {
         trails = !trails;
@@ -335,4 +292,73 @@ public class PopulateParticles : MonoBehaviour {
         }
     }
     
+}
+
+[Serializable]
+public class SerializableVector3
+{
+    public float x, y, z;
+
+    public SerializableVector3(Vector3 v)
+    {
+        x = v.x;
+        y = v.y;
+        z = v.z;
+    }
+
+    public static List<SerializableVector3> fromList(List<Vector3> list)
+    {
+        var newList = new List<SerializableVector3>();
+        foreach (var v in list) newList.Add(new SerializableVector3(v));
+        return newList;
+    }
+
+    public Vector3 toVector3()
+    {
+        return new Vector3(x, y, z);
+    }
+}
+
+[Serializable]
+public class SerializableParticle
+{
+    public bool Touched;
+    public SerializableVector3 Position;
+
+    public SerializableParticle(bool t, SerializableVector3 p)
+    {
+        Touched = t;
+        Position = p;
+    }
+
+    public SerializableParticle(bool t, Vector3 p)
+    {
+        Touched = t;
+        Position = new SerializableVector3(p);
+    }
+
+    public static List<SerializableParticle> fromGOList(List<GameObject> list)
+    {
+        var newList = new List<SerializableParticle>();
+        foreach(var go in list)
+        {
+            newList.Add(new SerializableParticle(
+                go.GetComponent<ParticleData>().touched, 
+                go.transform.position));
+        }
+        return newList;
+    }
+
+}
+
+[Serializable]
+public class RunStatistics
+{
+    public int TaskNum;
+    public string Environment;
+    public string UserName;
+    public DateTime Date;
+    public TimeSpan TaskTime;
+    public List<SerializableParticle> Particles;
+    public List<SerializableVector3> UserPath;
 }

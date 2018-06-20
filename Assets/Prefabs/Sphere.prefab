@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 135805329639439090}
   - component: {fileID: 96367203294773276}
   - component: {fileID: 114675882929151206}
+  - component: {fileID: 114698356473703934}
   m_Layer: 8
   m_Name: Sphere
   m_TagString: Particle
@@ -189,9 +190,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af11b167570bee4ea7e5bc409a4becc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: -1
-  classification: Normal
-  color: {r: 0, g: 0, b: 0, a: 0}
+  touched: 0
+--- !u!114 &114698356473703934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718386794189806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3abaf4521bf2344ea21ed3020b98eb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  disableWhenIdle: 1
+  touchHighlightColor: {r: 1, g: 0.80689657, b: 0, a: 0}
+  allowedTouchControllers: 0
+  ignoredColliders: []
+  isGrabbable: 0
+  holdButtonToGrab: 0
+  stayGrabbedOnTeleport: 0
+  validDrop: 1
+  grabOverrideButton: 0
+  allowedGrabControllers: 0
+  grabAttachMechanicScript: {fileID: 0}
+  secondaryGrabActionScript: {fileID: 0}
+  isUsable: 0
+  holdButtonToUse: 0
+  useOnlyIfGrabbed: 0
+  pointerActivatesUseAction: 0
+  useOverrideButton: 0
+  allowedUseControllers: 0
+  usingState: 0
 --- !u!135 &135805329639439090
 SphereCollider:
   m_ObjectHideFlags: 1
