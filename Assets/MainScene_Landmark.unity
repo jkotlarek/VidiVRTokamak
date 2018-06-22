@@ -9305,7 +9305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548176ee169d26e49adf9f1df6a40a4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  particlePrefab: {fileID: 1718386794189806, guid: e4b32e41c73772d4da1aa578f9678622,
+  particlePrefab: {fileID: 1213796580414708, guid: 96d9de6dfa53428459f93d68fd93a880,
     type: 2}
   highlightedParticlePrefab: {fileID: 1322475916482362, guid: 9e91bdf6f78908d46bedd0addd67a36c,
     type: 2}
@@ -9326,12 +9326,12 @@ MonoBehaviour:
   speedshift: 0
   flushTrails: 0
   classify: 0
-  particleMask: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b000000
+  particleMask: 0000000001000000020000000300000004000000050000000600000007000000
   taskNum: 0
   username: 
   currentMode: 0
   positions: []
-  currentTimestep: 1
+  currentTimestep: 500
 --- !u!114 &298377554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28707,7 +28707,7 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: particleMask.Array.size
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4554593225094670, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
       propertyPath: m_LocalPosition.x
@@ -28904,13 +28904,19 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: currentTimestep
-      value: 1
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: origin
       value: 
       objectReference: {fileID: 1271973395}
+    - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
+        type: 2}
+      propertyPath: particlePrefab
+      value: 
+      objectReference: {fileID: 1213796580414708, guid: 96d9de6dfa53428459f93d68fd93a880,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
   m_IsPrefabAsset: 0

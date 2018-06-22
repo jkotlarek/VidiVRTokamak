@@ -16,5 +16,5 @@ public class ParticleData : MonoBehaviour {
     {
         touched = true;
     }
-
+    
 }
