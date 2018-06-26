@@ -8794,7 +8794,7 @@ MonoBehaviour:
   username: 
   currentMode: 0
   positions: []
-  currentTimestep: 1
+  currentTimestep: 500
 --- !u!114 &298377554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27198,7 +27198,7 @@ Prefab:
     - target: {fileID: 114359421117557328, guid: de6d7101aa98bb04cab2ab519481475e,
         type: 2}
       propertyPath: currentTimestep
-      value: 1
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de6d7101aa98bb04cab2ab519481475e, type: 2}
